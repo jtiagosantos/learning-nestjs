@@ -5,11 +5,11 @@
     "ts"
   ],
   "rootDir": ".",
-  "testRegex": ".*\\.spec\\.ts$",
+  "testEnvironment": "node",
+  "testRegex": ".*\\.e2e-spec\\.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },
-  "collectCoverage": false,
   "collectCoverageFrom": [
     "src/**/*.ts",
     "!src/**/*spec.ts",
@@ -18,7 +18,6 @@
     "!src/app.module.ts"
   ],
   "coverageDirectory": "./coverage",
-  "testEnvironment": "node",
   "clearMocks": true,
   "setupFilesAfterEnv": [
     "<rootDir>/test/setup.ts"

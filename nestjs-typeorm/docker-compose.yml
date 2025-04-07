@@ -2,13 +2,23 @@ version: '3.1'
 
 services:
   db:
-    build: .
+    image: postgres:14.1-alpine
     container_name: nestjs-typeorm-db
     restart: always
     ports:
       - '5432:5432'
     volumes:
       - .docker/dbdata:/var/lib/postgresql@14/data
+    environment:
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=nestjs-typeorm-db
+
+  dbtest:
+    image: postgres:14.1-alpine
+    container_name: test-db
+    restart: always
+    ports:
+      - '5433:5432'
     environment:
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=nestjs-typeorm-db
