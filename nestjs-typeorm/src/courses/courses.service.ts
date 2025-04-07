@@ -1,10 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Course } from './entities/courses.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Tag } from './entities/tags.entity';
 import { CreateCourseDTO } from './dtos/create-course.dto';
 import { UpdateCourseDTO } from './dtos/update-course.dto';
+import { NotFoundError } from 'src/common/errors/not-found.error';
 
 @Injectable()
 export class CoursesService {
@@ -27,7 +28,7 @@ export class CoursesService {
     });
 
     if (!course) {
-      throw new NotFoundException(`Course with ID ${id} not found`);
+      throw new NotFoundError(`Course with ID ${id} not found`);
     }
 
     return course;
@@ -60,7 +61,7 @@ export class CoursesService {
     });
 
     if (!course) {
-      throw new NotFoundException(`Course with ID ${id} not found`);
+      throw new NotFoundError(`Course with ID ${id} not found`);
     }
 
     return this.courseRepository.save(course);
@@ -70,7 +71,7 @@ export class CoursesService {
     const course = await this.courseRepository.findOneBy({ id });
 
     if (!course) {
-      throw new NotFoundException(`Course with ID ${id} not found`);
+      throw new NotFoundError(`Course with ID ${id} not found`);
     }
 
     return this.courseRepository.remove(course);
