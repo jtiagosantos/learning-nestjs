@@ -8,7 +8,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - .docker/dbdata:/var/lib/postgresql/data
+      - .docker/dbdata:/var/lib/postgresql@14/data
     environment:
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=nestjs-typeorm-db
