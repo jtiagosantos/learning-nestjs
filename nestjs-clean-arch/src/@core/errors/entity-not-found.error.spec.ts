@@ -4,7 +4,7 @@ describe('EntityNotFoundError (unit)', () => {
   let sut: EntityNotFoundError;
 
   beforeEach(() => {
-    sut = new EntityNotFoundError('Entity not found');
+    sut = new EntityNotFoundError('entity not found');
   });
 
   it('should create an instance of EntityNotFoundError', () => {
@@ -17,6 +17,6 @@ describe('EntityNotFoundError (unit)', () => {
   });
 
   it('should have the correct message', () => {
-    expect(sut.message).toBe('Entity not found');
+    expect(sut.message).toBe('entity not found');
   });
 });

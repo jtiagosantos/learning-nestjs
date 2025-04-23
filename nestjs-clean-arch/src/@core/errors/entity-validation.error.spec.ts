@@ -4,7 +4,7 @@ describe('EntityValidationError (unit)', () => {
   let sut: EntityValidationError;
 
   beforeEach(() => {
-    sut = new EntityValidationError('Entity', 'Invalid value provided');
+    sut = new EntityValidationError('entity', 'invalid value provided');
   });
 
   it('should create an instance of EntityValidationError', () => {
@@ -18,7 +18,7 @@ describe('EntityValidationError (unit)', () => {
 
   it('should have the correct message', () => {
     expect(sut.message).toBe(
-      'Validation error in Entity: Invalid value provided',
+      'validation error in entity: invalid value provided',
     );
   });
 });

@@ -4,7 +4,7 @@ describe('ConflictError (unit)', () => {
   let sut: ConflictError;
 
   beforeEach(() => {
-    sut = new ConflictError('Email already exists');
+    sut = new ConflictError('email already exists');
   });
 
   it('should create an instance of ConflictError', () => {
@@ -17,6 +17,6 @@ describe('ConflictError (unit)', () => {
   });
 
   it('should have the correct message', () => {
-    expect(sut.message).toBe('Email already exists');
+    expect(sut.message).toBe('email already exists');
   });
 });

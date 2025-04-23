@@ -22,7 +22,7 @@ describe('UserEntity (unit)', () => {
     expect(() => {
       props.name = faker.number.int() as unknown as string;
       return new UserEntity(props);
-    }).toThrow(`Validation error in ${UserEntity.name}: name must be a string`);
+    }).toThrow(`validation error in ${UserEntity.name}: name must be a string`);
   });
 
   it('should not be able to create a user with an empty name', () => {
@@ -31,12 +31,12 @@ describe('UserEntity (unit)', () => {
     expect(() => {
       props.name = '';
       return new UserEntity(props);
-    }).toThrow(`Validation error in ${UserEntity.name}: name cannot be empty`);
+    }).toThrow(`validation error in ${UserEntity.name}: name cannot be empty`);
 
     expect(() => {
       props.name = '   ';
       return new UserEntity(props);
-    }).toThrow(`Validation error in ${UserEntity.name}: name cannot be empty`);
+    }).toThrow(`validation error in ${UserEntity.name}: name cannot be empty`);
   });
 
   it('should not be able to create a user with a name that is longer than 255 characters', () => {
@@ -45,7 +45,7 @@ describe('UserEntity (unit)', () => {
     });
 
     expect(() => new UserEntity(props)).toThrow(
-      `Validation error in ${UserEntity.name}: name cannot be longer than 255 characters`,
+      `validation error in ${UserEntity.name}: name cannot be longer than 255 characters`,
     );
   });
 
@@ -54,7 +54,7 @@ describe('UserEntity (unit)', () => {
       props.password = faker.number.int() as unknown as string;
       return new UserEntity(props);
     }).toThrow(
-      `Validation error in ${UserEntity.name}: password must be a string`,
+      `validation error in ${UserEntity.name}: password must be a string`,
     );
   });
 
@@ -65,14 +65,14 @@ describe('UserEntity (unit)', () => {
       props.password = '';
       return new UserEntity(props);
     }).toThrow(
-      `Validation error in ${UserEntity.name}: password cannot be empty`,
+      `validation error in ${UserEntity.name}: password cannot be empty`,
     );
 
     expect(() => {
       props.password = '   ';
       return new UserEntity(props);
     }).toThrow(
-      `Validation error in ${UserEntity.name}: password cannot be empty`,
+      `validation error in ${UserEntity.name}: password cannot be empty`,
     );
   });
 
@@ -82,25 +82,7 @@ describe('UserEntity (unit)', () => {
     });
 
     expect(() => new UserEntity(props)).toThrow(
-      `Validation error in ${UserEntity.name}: password cannot be longer than 100 characters`,
-    );
-  });
-
-  it('should not be able to create a user with a createdAt that is not a date', () => {
-    expect(() => {
-      props.createdAt = faker.number.int() as unknown as Date;
-      return new UserEntity(props);
-    }).toThrow(
-      `Validation error in ${UserEntity.name}: createdAt must be a date`,
-    );
-  });
-
-  it('should not be able to create a user with an invalid createdAt date', () => {
-    expect(() => {
-      props.createdAt = new Date(NaN);
-      return new UserEntity(props);
-    }).toThrow(
-      `Validation error in ${UserEntity.name}: createdAt must be a valid date`,
+      `validation error in ${UserEntity.name}: password cannot be longer than 100 characters`,
     );
   });
 

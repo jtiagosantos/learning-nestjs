@@ -14,6 +14,5 @@ export interface UserRepository
     SearchParams,
     SearchResult<UserEntity, Filter>
   > {
-  findByEmail(email: string): Promise<UserEntity>;
-  emailExists(email: string): Promise<void>;
+  findByEmail(email: string): Promise<UserEntity | null>;
 }

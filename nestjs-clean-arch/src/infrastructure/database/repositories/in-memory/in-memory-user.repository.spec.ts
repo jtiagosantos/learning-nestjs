@@ -1,8 +1,6 @@
-import { EntityNotFoundError } from '@/@core/errors/entity-not-found.error';
 import { InMemoryUserRepository } from './in-memory-user.repository';
 import { UserEntity } from '@/domain/entities/user.entity';
 import { UserPropsMaker } from '@/domain/helpers/user-props-maker.helper';
-import { ConflictError } from '@/@core/errors/conflict.error';
 
 describe('InMemoryUserRepository (unit)', () => {
   let sut: InMemoryUserRepository;
@@ -14,32 +12,15 @@ describe('InMemoryUserRepository (unit)', () => {
   describe('findByEmail method', () => {
     it('should not be able to find an entity by an inexistent email', async () => {
       const email = 'test@test.com';
-      await expect(() => sut.findByEmail(email)).rejects.toThrow(
-        new EntityNotFoundError(`Entity with email ${email} not found`),
-      );
+      await expect(sut.findByEmail(email)).resolves.toBeNull();
     });
 
     it('should be able to find an entity by an existent email', async () => {
       const entity = new UserEntity(UserPropsMaker.make());
       await sut.insert(entity);
-      const result = await sut.findByEmail(entity.email);
+      const result = (await sut.findByEmail(entity.email)) as UserEntity;
 
       expect(result.toJSON()).toStrictEqual(entity.toJSON());
-    });
-  });
-
-  describe('emailExists method', () => {
-    it('should be able to throw a conflict error when email already exists', async () => {
-      const entity = new UserEntity(UserPropsMaker.make());
-      await sut.insert(entity);
-      await expect(() => sut.emailExists(entity.email)).rejects.toThrow(
-        new ConflictError(`Email ${entity.email} already exists`),
-      );
-    });
-
-    it('should not be able to throw a conflict error when email already exists', async () => {
-      expect.assertions(0);
-      await sut.emailExists('test@test.com');
     });
   });
 

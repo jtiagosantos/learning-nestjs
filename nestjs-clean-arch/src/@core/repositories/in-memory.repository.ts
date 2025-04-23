@@ -14,11 +14,7 @@ export abstract class InMemoryRepository<E extends Entity>
   async findById(id: string): Promise<E | null> {
     const entity = this.data.find(item => item.id === id);
 
-    if (!entity) {
-      throw new EntityNotFoundError(`Entity with id ${id} not found`);
-    }
-
-    return entity;
+    return entity ?? null;
   }
 
   async findAll(): Promise<E[]> {
@@ -29,7 +25,7 @@ export abstract class InMemoryRepository<E extends Entity>
     const index = this.data.findIndex(item => item.id === entity.id);
 
     if (index === -1) {
-      throw new EntityNotFoundError(`Entity with id ${entity.id} not found`);
+      throw new EntityNotFoundError(`entity with id ${entity.id} not found`);
     }
 
     this.data[index] = entity;
@@ -38,10 +34,8 @@ export abstract class InMemoryRepository<E extends Entity>
   async delete(id: string): Promise<void> {
     const index = this.data.findIndex(item => item.id === id);
 
-    if (index === -1) {
-      throw new EntityNotFoundError(`Entity with id ${id} not found`);
+    if (index !== -1) {
+      this.data.splice(index, 1);
     }
-
-    this.data.splice(index, 1);
   }
 }

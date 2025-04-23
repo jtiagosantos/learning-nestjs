@@ -13,7 +13,6 @@ export class UserEntity extends Entity<UserProps> {
   private _name: string;
   private _email: Email;
   private _password: string;
-  private _createdAt: Date;
 
   constructor(props: UserProps, id?: string) {
     super(props, id);
@@ -25,9 +24,6 @@ export class UserEntity extends Entity<UserProps> {
 
     this.validatePassword(props.password);
     this._password = props.password;
-
-    this._createdAt = props.createdAt ?? new Date();
-    this.validateCreatedAt(this._createdAt);
   }
 
   get name() {
@@ -40,10 +36,6 @@ export class UserEntity extends Entity<UserProps> {
 
   get password() {
     return this._password;
-  }
-
-  get createdAt() {
-    return this._createdAt;
   }
 
   updateName(value: string) {
@@ -88,21 +80,6 @@ export class UserEntity extends Entity<UserProps> {
       throw new EntityValidationError(
         UserEntity.name,
         'password cannot be longer than 100 characters',
-      );
-    }
-  }
-
-  private validateCreatedAt(value: Date) {
-    if (!(value instanceof Date)) {
-      throw new EntityValidationError(
-        UserEntity.name,
-        'createdAt must be a date',
-      );
-    }
-    if (isNaN(value.getTime())) {
-      throw new EntityValidationError(
-        UserEntity.name,
-        'createdAt must be a valid date',
       );
     }
   }

@@ -48,9 +48,9 @@ describe('InMemoryRepository (unit)', () => {
   });
 
   it('should not be able to find an inexistent item by id', async () => {
-    await expect(() => sut.findById('inexistent-id')).rejects.toThrow(
-      new EntityNotFoundError('Entity with id inexistent-id not found'),
-    );
+    const item = await sut.findById('inexistent-id');
+
+    expect(item).toBeNull();
   });
 
   it('should be able to find all items', async () => {
@@ -109,7 +109,7 @@ describe('InMemoryRepository (unit)', () => {
     );
 
     await expect(() => sut.update(updatedEntity)).rejects.toThrow(
-      new EntityNotFoundError('Entity with id inexistent-id not found'),
+      new EntityNotFoundError('entity with id inexistent-id not found'),
     );
   });
 
@@ -125,11 +125,5 @@ describe('InMemoryRepository (unit)', () => {
     await sut.delete(entity.id);
 
     expect(sut.data).toHaveLength(0);
-  });
-
-  it('should not be able to delete an inexistent item', async () => {
-    await expect(() => sut.delete('inexistent-id')).rejects.toThrow(
-      new EntityNotFoundError('Entity with id inexistent-id not found'),
-    );
   });
 });

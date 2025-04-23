@@ -62,6 +62,7 @@ describe('Entity (unit)', () => {
 
     expect(JSON).toStrictEqual({
       id,
+      createdAt: entity.createdAt,
       ...props,
     });
   });
@@ -76,5 +77,17 @@ describe('Entity (unit)', () => {
 
     expect(entity.id).toBeDefined();
     expect(typeof entity.id).toBe('string');
+  });
+
+  it('should be able to get the createdAt value by the getter of createdAt', () => {
+    const props: StubProps = {
+      prop1: faker.string.alpha(10),
+      prop2: faker.number.int(),
+    };
+
+    const entity = new StubEntity(props);
+
+    expect(entity.createdAt).toBeDefined();
+    expect(entity.createdAt).toBeInstanceOf(Date);
   });
 });
