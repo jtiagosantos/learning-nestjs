@@ -1,4 +1,4 @@
-import { InMemoryUserRepository } from '@/infrastructure/database/repositories/in-memory/in-memory-user.repository';
+import { InMemoryUserRepository } from '@/infrastructure/database/in-memory/repositories/in-memory-user.repository';
 import { UpdateUserUseCase } from './update-user.use-case';
 import { BadRequestError } from '@/@core/errors/bad-request.error';
 import { randomUUID } from 'node:crypto';

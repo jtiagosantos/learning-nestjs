@@ -1,4 +1,4 @@
-import { InMemoryUserRepository } from '@/infrastructure/database/repositories/in-memory/in-memory-user.repository';
+import { InMemoryUserRepository } from '@/infrastructure/database/in-memory/repositories/in-memory-user.repository';
 import { RegisterUserUseCase } from './register-user.use-case';
 import { HashProvider } from '@/@core/providers/hash.provider';
 import { UserPropsMaker } from '@/domain/helpers/user-props-maker.helper';

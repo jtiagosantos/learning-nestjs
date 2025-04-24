@@ -1,4 +1,4 @@
-import { InMemoryUserRepository } from '@/infrastructure/database/repositories/in-memory/in-memory-user.repository';
+import { InMemoryUserRepository } from '@/infrastructure/database/in-memory/repositories/in-memory-user.repository';
 import { BadRequestError } from '@/@core/errors/bad-request.error';
 import { SignInUserUseCase } from './signin-user.use-case';
 import { HashProvider } from '@/@core/providers/hash.provider';

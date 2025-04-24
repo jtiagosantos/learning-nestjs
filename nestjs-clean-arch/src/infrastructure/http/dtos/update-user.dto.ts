@@ -1,4 +1,9 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateUserDto } from './create-user.dto';
+import { UpdateUserInput } from '@/application/inputs/update-user.input';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
+export class UpdateUserDTO implements Omit<UpdateUserInput, 'id'> {
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(255)
+  name: string;
+}

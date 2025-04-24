@@ -12,7 +12,9 @@ export class EnvModule extends ConfigModule {
   static forRoot(options: ConfigModuleOptions = {}): Promise<DynamicModule> {
     return super.forRoot({
       ...options,
-      envFilePath: [join(__dirname, '../../../', '.env.test')],
+      envFilePath: [
+        join(__dirname, '../../../', `.env.${process.env.NODE_ENV}`),
+      ],
     });
   }
 }
