@@ -29,4 +29,34 @@ describe('EnvService (unit)', () => {
 
     expect(env).toBe('test');
   });
+
+  it('should be able to return the variable DATABASE_HOST', () => {
+    const host = sut.getDatabaseHost();
+
+    expect(host).toBe('localhost');
+  });
+
+  it('should be able to return the variable DATABASE_PORT', () => {
+    const port = sut.getDatabasePort();
+
+    expect(port).toBe(5432);
+  });
+
+  it('should be able to return the variable DATABASE_USERNAME', () => {
+    const username = sut.getDatabaseUsername();
+
+    expect(username).toBe('postgres');
+  });
+
+  it('should be able to return the variable DATABASE_PASSWORD', () => {
+    const password = sut.getDatabasePassword();
+
+    expect(password).toBe('docker');
+  });
+
+  it('should be able to return the variable DATABASE_NAME', () => {
+    const name = sut.getDatabaseName();
+
+    expect(name).toBe('nestjs-clean-arch-db');
+  });
 });
