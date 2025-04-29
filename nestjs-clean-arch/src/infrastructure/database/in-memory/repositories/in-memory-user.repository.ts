@@ -7,7 +7,7 @@ export class InMemoryUserRepository
   extends InMemorySearchableRepository<UserEntity>
   implements UserRepository
 {
-  searchableFields = ['name', 'createdAt'];
+  sortableFields = ['name', 'createdAt'];
 
   async findByEmail(email: string) {
     const entity = this.data.find(item => item.email === email);

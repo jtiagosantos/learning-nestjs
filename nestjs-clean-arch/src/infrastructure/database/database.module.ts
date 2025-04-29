@@ -21,5 +21,7 @@ import { User } from './typeorm/entities/user.entity';
       inject: [EnvService],
     }),
   ],
+  exports: [],
+  providers: [],
 })
 export class DatabaseModule {}

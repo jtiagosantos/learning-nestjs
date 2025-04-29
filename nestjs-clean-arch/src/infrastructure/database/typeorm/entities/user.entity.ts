@@ -1,4 +1,6 @@
+import { randomUUID } from 'node:crypto';
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -21,4 +23,10 @@ export class User {
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
+
+  @BeforeInsert()
+  generatedId() {
+    if (this.id) return;
+    this.id = randomUUID();
+  }
 }

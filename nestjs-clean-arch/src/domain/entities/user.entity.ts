@@ -10,42 +10,36 @@ export interface UserProps {
 }
 
 export class UserEntity extends Entity<UserProps> {
-  private _name: string;
-  private _email: Email;
-  private _password: string;
-
   constructor(props: UserProps, id?: string) {
     super(props, id);
 
     this.validateName(props.name);
-    this._name = props.name;
 
-    this._email = Email.create(props.email);
+    Email.create(props.email);
 
     this.validatePassword(props.password);
-    this._password = props.password;
   }
 
   get name() {
-    return this._name;
+    return this.props.name;
   }
 
   get email() {
-    return this._email.value;
+    return this.props.email;
   }
 
   get password() {
-    return this._password;
+    return this.props.password;
   }
 
   updateName(value: string) {
     this.validateName(value);
-    this._name = value;
+    this.props.name = value;
   }
 
   updatePassword(value: string) {
     this.validatePassword(value);
-    this._password = value;
+    this.props.password = value;
   }
 
   private validateName(value: string) {

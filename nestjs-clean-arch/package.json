@@ -13,8 +13,10 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest --config ./jest.config.json",
+    "test": "jest --config ./jest.config.json --runInBand",
+    "test:int": "npx dotenv-cli -e .env.test -- jest --config ./jest.int.config.json --runInBand",
     "test:watch": "jest --config ./jest.config.json --watch",
+    "test:int:watch": "npx dotenv-cli -e .env.test -- jest --config ./jest.int.config.json --runInBand --watch",
     "test:cov": "jest --config ./jest.config.json --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --runInBand --config ./jest.e2e.config.json"

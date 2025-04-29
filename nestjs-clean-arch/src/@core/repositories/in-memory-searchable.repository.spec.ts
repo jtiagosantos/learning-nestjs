@@ -10,7 +10,7 @@ interface StubProps {
 class StubEntity extends Entity<StubProps> {}
 
 class StubInMemorySearchableRepository extends InMemorySearchableRepository<StubEntity> {
-  searchableFields: string[] = ['name'];
+  sortableFields: string[] = ['name'];
 
   protected async applyFilter(
     data: StubEntity[],

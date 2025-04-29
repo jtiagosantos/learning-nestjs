@@ -1,6 +1,5 @@
 import { RegisterUserUseCase } from '@/application/use-cases/register-user.use-case';
 import { Module } from '@nestjs/common';
-import { InMemoryUserRepository } from '../database/in-memory/repositories/in-memory-user.repository';
 import { BcryptjsHashProvider } from '../providers/hash/bcryptjs.provider';
 import { HashProvider } from '@/@core/providers/hash.provider';
 import { UserRepository } from '@/domain/repositories/user.repository';
@@ -11,13 +10,21 @@ import { UpdateUserUseCase } from '@/application/use-cases/update-user.use-case'
 import { UpdateUserPasswordUseCase } from '@/application/use-cases/update-user-password.use-case';
 import { DeleteUserUseCase } from '@/application/use-cases/delete-user.use-case';
 import { UsersController } from '../http/controllers/users.controller';
+import { TypeORMUserRepository } from '../database/typeorm/repositories/typeorm-user.repository';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { User } from '../database/typeorm/entities/user.entity';
+import { Repository } from 'typeorm';
 
 @Module({
+  imports: [],
   controllers: [UsersController],
   providers: [
     {
       provide: 'UserRepository',
-      useClass: InMemoryUserRepository, // change to your actual repository implementation
+      useFactory: () =>
+        new TypeORMUserRepository(
+          getRepositoryToken(User) as unknown as Repository<User>,
+        ),
     },
     {
       provide: 'HashProvider',
