@@ -12,7 +12,7 @@ export class UpdateUserPasswordUseCase
   implements UseCase<UpdateUserPasswordInput, UserOutput>
 {
   constructor(
-    private userRepository: UserRepository,
+    private readonly userRepository: UserRepository,
     private readonly hashProvider: HashProvider,
   ) {}
 
