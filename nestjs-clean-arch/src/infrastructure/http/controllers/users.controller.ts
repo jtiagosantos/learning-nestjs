@@ -28,6 +28,8 @@ import { UpdateUserDTO } from '../dtos/update-user.dto';
 import { UpdateUserPasswordParams } from '../params/update-user-password.params';
 import { UpdateUserPasswordDTO } from '../dtos/update-user-password.dto';
 import { DeleteUserParams } from '../params/delete-user.params';
+import { UserPresenter } from '../presenters/user.presenter';
+import { UserCollectionPresenter } from '../presenters/user-collection.presenter';
 
 @Controller('users')
 export class UsersController {
@@ -54,23 +56,27 @@ export class UsersController {
 
   @Post('/register')
   async register(@Body() body: RegisterUserDTO) {
-    return this.registerUserUseCase.execute(body);
+    const output = await this.registerUserUseCase.execute(body);
+    return new UserPresenter(output);
   }
 
   @HttpCode(200)
   @Post('/signin')
   async signin(@Body() body: SignInUserDTO) {
-    return this.signInUserUseCase.execute(body);
+    const output = await this.signInUserUseCase.execute(body);
+    return new UserPresenter(output);
   }
 
   @Get()
   async search(@Query() query: ListUsersDTO) {
-    return this.listUsersUseCase.execute(query);
+    const output = await this.listUsersUseCase.execute(query);
+    return new UserCollectionPresenter(output);
   }
 
   @Get(':id')
   async getUser(@Param() params: GetUserParams) {
-    return this.getUserUseCase.execute(params);
+    const output = await this.getUserUseCase.execute(params);
+    return new UserPresenter(output);
   }
 
   @Put(':id')
@@ -78,7 +84,8 @@ export class UsersController {
     @Param() params: UpdateUserParams,
     @Body() body: UpdateUserDTO,
   ) {
-    return this.updateUserUseCase.execute({ ...params, ...body });
+    const output = await this.updateUserUseCase.execute({ ...params, ...body });
+    return new UserPresenter(output);
   }
 
   @Patch(':id')
@@ -86,7 +93,11 @@ export class UsersController {
     @Param() params: UpdateUserPasswordParams,
     @Body() body: UpdateUserPasswordDTO,
   ) {
-    return this.updateUserPasswordUseCase.execute({ ...params, ...body });
+    const output = await this.updateUserPasswordUseCase.execute({
+      ...params,
+      ...body,
+    });
+    return new UserPresenter(output);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

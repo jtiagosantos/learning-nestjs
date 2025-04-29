@@ -11,20 +11,19 @@ import { UpdateUserPasswordUseCase } from '@/application/use-cases/update-user-p
 import { DeleteUserUseCase } from '@/application/use-cases/delete-user.use-case';
 import { UsersController } from '../http/controllers/users.controller';
 import { TypeORMUserRepository } from '../database/typeorm/repositories/typeorm-user.repository';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from '../database/typeorm/entities/user.entity';
-import { Repository } from 'typeorm';
+import { DataSource } from 'typeorm';
+import { DatabaseModule } from '../database/database.module';
 
 @Module({
-  imports: [],
+  imports: [DatabaseModule],
   controllers: [UsersController],
   providers: [
     {
       provide: 'UserRepository',
-      useFactory: () =>
-        new TypeORMUserRepository(
-          getRepositoryToken(User) as unknown as Repository<User>,
-        ),
+      useFactory: async (dataSource: DataSource) =>
+        new TypeORMUserRepository(dataSource.getRepository(User)),
+      inject: ['DATA_SOURCE'],
     },
     {
       provide: 'HashProvider',
