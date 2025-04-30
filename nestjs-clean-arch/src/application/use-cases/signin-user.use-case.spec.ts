@@ -4,7 +4,6 @@ import { SignInUserUseCase } from './signin-user.use-case';
 import { HashProvider } from '@/@core/providers/hash.provider';
 import { HashProviderFaker } from '@/@core/fakers/hash.provider.faker';
 import { faker } from '@faker-js/faker/.';
-import { EntityNotFoundError } from '@/@core/errors/entity-not-found.error';
 import { UserEntity } from '@/domain/entities/user.entity';
 import { UserPropsMaker } from '@/domain/helpers/user-props-maker.helper';
 import { InvalidCredentialsError } from '@/@core/errors/invalid-credentials.error';
@@ -40,9 +39,7 @@ describe('SignInUserUseCase (unit)', () => {
         email,
         password: faker.internet.password(),
       }),
-    ).rejects.toThrow(
-      new EntityNotFoundError(`user with email ${email} not found`),
-    );
+    ).rejects.toThrow(new InvalidCredentialsError('invalid credentials'));
   });
 
   it('should not be able to signin a user with an invalid password', async () => {
@@ -62,7 +59,7 @@ describe('SignInUserUseCase (unit)', () => {
         email,
         password: 'invalid-password',
       }),
-    ).rejects.toThrow(new InvalidCredentialsError('password does not match'));
+    ).rejects.toThrow(new InvalidCredentialsError('invalid credentials'));
   });
 
   it('should be able to signin a user with valid credentials', async () => {

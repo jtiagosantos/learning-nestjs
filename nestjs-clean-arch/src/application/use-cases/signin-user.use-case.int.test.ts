@@ -4,7 +4,6 @@ import { User } from '@/infrastructure/database/typeorm/entities/user.entity';
 import { BcryptjsHashProvider } from '@/infrastructure/providers/hash/bcryptjs.provider';
 import { HashProvider } from '@/@core/providers/hash.provider';
 import { faker } from '@faker-js/faker/.';
-import { EntityNotFoundError } from '@/@core/errors/entity-not-found.error';
 import { SignInUserUseCase } from './signin-user.use-case';
 import { UserEntity } from '@/domain/entities/user.entity';
 import { UserPropsMaker } from '@/domain/helpers/user-props-maker.helper';
@@ -67,9 +66,7 @@ describe('SignInUserUseCase (integration)', () => {
         email,
         password: faker.internet.password(),
       }),
-    ).rejects.toThrow(
-      new EntityNotFoundError(`user with email ${email} not found`),
-    );
+    ).rejects.toThrow(new InvalidCredentialsError('invalid credentials'));
   });
 
   it('should not be able to signin a user with an invalid password', async () => {
@@ -89,6 +86,6 @@ describe('SignInUserUseCase (integration)', () => {
         email,
         password: 'invalid-password',
       }),
-    ).rejects.toThrow(new InvalidCredentialsError('password does not match'));
+    ).rejects.toThrow(new InvalidCredentialsError('invalid credentials'));
   });
 });

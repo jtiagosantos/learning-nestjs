@@ -5,7 +5,6 @@ import { UserOutput } from '../outputs/user.output';
 import { UseCase } from '@/@core/base/use-case';
 import { UserMapper } from '../mappers/user.mapper';
 import { SignInUserInput } from '../inputs/signin-user.input';
-import { EntityNotFoundError } from '@/@core/errors/entity-not-found.error';
 import { InvalidCredentialsError } from '@/@core/errors/invalid-credentials.error';
 
 export class SignInUserUseCase implements UseCase<SignInUserInput, UserOutput> {
@@ -28,7 +27,7 @@ export class SignInUserUseCase implements UseCase<SignInUserInput, UserOutput> {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new EntityNotFoundError(`user with email ${email} not found`);
+      throw new InvalidCredentialsError('invalid credentials');
     }
 
     const isPasswordMatched = await this.hashProvider.compareHash(
@@ -37,7 +36,7 @@ export class SignInUserUseCase implements UseCase<SignInUserInput, UserOutput> {
     );
 
     if (!isPasswordMatched) {
-      throw new InvalidCredentialsError('password does not match');
+      throw new InvalidCredentialsError('invalid credentials');
     }
 
     return UserMapper.toOutput(user);
